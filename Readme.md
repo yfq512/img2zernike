@@ -1,1 +1,1 @@
-## 参看 https://github.com/primetang/pyzernikemoment
+## 参考 https://github.com/primetang/pyzernikemoment
