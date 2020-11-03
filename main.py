@@ -1,27 +1,20 @@
-Last login: Wed Oct 28 17:16:38 on ttys001
-(base) kpinfo@kpinfodeMacBook-Pro ~ % ls
-Desktop        Library        Pictures       anaconda3      sensors
-Documents      Movies         Public         fsdownload     test
-Downloads      Music          Sunlogin Files opt
-(base) kpinfo@kpinfodeMacBook-Pro ~ % cd Desktop 
-(base) kpinfo@kpinfodeMacBook-Pro Desktop % ls
-Old_Homebrew
-[doi 10.1145_3321408.3322628]Yao, Liyao; Hu, Zexi; Liu, Caixing; Liu, Hanxing; Kuang, Yingjie -- [ACMPress the ACM Turing Celebration Conference - China - Chengdu, China(2019.05.17-2019.05.19)] P.pdf
-key.rtf
-work
-图像审核开启服务方法.rtf
-(base) kpinfo@kpinfodeMacBook-Pro Desktop % cd work 
-(base) kpinfo@kpinfodeMacBook-Pro work % ls
-Figure_1.png         Similarvideomatching pyzernikemoment.py
-Similarimagematching Video-Matching       test.mp4
-(base) kpinfo@kpinfodeMacBook-Pro work % mkdir Similar_vc2
-(base) kpinfo@kpinfodeMacBook-Pro work % ls
-Figure_1.png         Similarvideomatching test.mp4
-Similar_vc2          Video-Matching
-Similarimagematching pyzernikemoment.py
-(base) kpinfo@kpinfodeMacBook-Pro work % vim pyzernikemoment.py 
-(base) kpinfo@kpinfodeMacBook-Pro work % vim pyzernikemoment.py
+import numpy as np
+from math import factorial
+import cv2, os
 
+def radialpoly(r, n, m):
+    rad = np.zeros(r.shape, r.dtype)
+    P = (n - abs(m)) / 2
+    Q = (n + abs(m)) / 2
+    for s in range(int(P + 1)):
+        c = (-1) ** s * factorial(n - s)
+        c /= factorial(s) * factorial(Q - s) * factorial(P - s)
+        rad += c * r ** (n - 2 * s)
+    return rad
+
+def Zernikemoment(src, n, m):
+    if src.dtype != np.float32:
+        src = np.where(src > 0, 0, 1).astype(np.float32)
     if len(src.shape) == 3:
         print('the input image src should be in gray')
         return
